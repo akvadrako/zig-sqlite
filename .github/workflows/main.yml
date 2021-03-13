@@ -26,7 +26,7 @@ jobs:
   test-in-memory:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -38,6 +38,7 @@ jobs:
 
       - name: Run Tests in memory
         run: zig build test -Din_memory=true
+        if: ${{ runner.os != 'Windows' }}
 
       - name: Run Tests in memory using the bundled SQLite
         run: zig build test -Din_memory=true -Duse_bundled
@@ -45,7 +46,7 @@ jobs:
   test-with-filesystem:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -57,6 +58,7 @@ jobs:
 
       - name: Run Tests with filesystem
         run: zig build test -Din_memory=false
+        if: ${{ runner.os != 'Windows' }}
 
       - name: Run Tests with filesystem using the bundled SQLite
         run: zig build test -Din_memory=false -Duse_bundled
