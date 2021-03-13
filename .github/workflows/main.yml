@@ -41,7 +41,7 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
 
       - name: Run Tests in memory using the bundled SQLite
-        run: zig build test -Din_memory=true -Duse_bundled
+        run: zig build test --verbose --verbose-cc --verbose-link -Din_memory=true -Duse_bundled 
 
   test-with-filesystem:
     strategy:
@@ -61,4 +61,4 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
 
       - name: Run Tests with filesystem using the bundled SQLite
-        run: zig build test -Din_memory=false -Duse_bundled
+        run: zig build test --verbose --verbose-cc --verbose-link -Din_memory=false -Duse_bundled
